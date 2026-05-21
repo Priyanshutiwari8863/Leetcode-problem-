@@ -12,7 +12,7 @@ public:
         int maxL=0;
         for(int val:arr2){
             while(val>0){
-                if(prefixes.count(val)){
+                if(prefixes.count(val)){// it return true or false mean 0 and 1;
                     int len = to_string(val).length();
                     maxL=max(len, maxL);
                     break;
