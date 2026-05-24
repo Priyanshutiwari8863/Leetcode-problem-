@@ -1,27 +1,21 @@
 class Solution {
 public:
     int totalSteps(vector<int>& nums) {
-        int n = nums.size();
-        vector<int> dp(n, 0);
-        stack<int> st;
+        stack<pair<int, int>> st;
         int maxSteps = 0;
 
-        for (int i = 0; i < n; i++) {
+        for (int num : nums) {
             int curSteps = 0;
 
-            while (!st.empty() && nums[st.top()] <= nums[i]) {
-                curSteps = max(curSteps, dp[st.top()]);
+            while (!st.empty() && st.top().first <= num) {
+                curSteps = max(curSteps, st.top().second);
                 st.pop();
             }
 
-            if (!st.empty()) {
-                dp[i] = curSteps + 1;
-            } else {
-                dp[i] = 0;
-            }
+            int steps = st.empty() ? 0 : curSteps + 1;
+            maxSteps = max(maxSteps, steps);
 
-            maxSteps = max(maxSteps, dp[i]);
-            st.push(i);
+            st.push({num, steps});
         }
 
         return maxSteps;
